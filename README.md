@@ -131,13 +131,19 @@ git submodule add https://github.com/hazae41/network-signaler.git ./mods/signal
 
 You just have to edit `main.ts` to load your submodule and route to it depending on wildcard DNS, URL path, HTTP headers, or anything you want.
 
+Import your module
+
 ```tsx
 import * as Mainnet from "./mods/mainnet/mod.ts";
 ```
 
+Choose a unique prefix for environment variables
+
 ```tsx
 const mainnet = await Mainnet.main("MAINNET_")
 ```
+
+Choose how to route requests to it
 
 ```tsx
 const onHttpRequest = async (request: Request) => {
