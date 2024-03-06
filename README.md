@@ -1,6 +1,6 @@
 # Example Microserver
 
-Allows colocating multiple Deno "servers" on the same Docker container using wildcard DNS and/or URL path.
+Allows colocating multiple Deno "servers" on the same Docker container using wildcard DNS, URL path, HTTP headers, and more.
 
 Optimized for both cloud-hosting and self-hosting.
 
@@ -113,14 +113,44 @@ e.g. `./tls/fullchain.pem` and `./tls/privkey.pem`
 
 ### Submodules
 
-Each submodule is configured via environment variables with a dedicated prefix. And routes requests to it via wildcard DNS and/or URL path.
+Each submodule is configured via environment variables with a dedicated prefix. And routes requests to it via wildcard DNS, URL path, HTTP headers, and more.
 
-To add a submodule
+#### Add a submodule
+
+```bash
+git submodule add https://github.com/<...> ./mods/<name>
+```
+
+e.g.
 
 ```bash
 git submodule add https://github.com/hazae41/network-signaler.git ./mods/signal
 ```
 
+#### Route a submodule
 
+You just have to edit `main.ts` to load your submodule and route to it depending on wildcard DNS, URL path, HTTP headers, or anything you want.
 
+```tsx
+import * as Mainnet from "./mods/mainnet/mod.ts";
+```
 
+```tsx
+const mainnet = await Mainnet.main("MAINNET_")
+```
+
+```tsx
+const onHttpRequest = async (request: Request) => {
+  if (request.headers.get("host")?.startsWith("mainnet."))
+    return await mainnet.onHttpRequest(request)
+  return new Response("Not Found", { status: 404 })
+}
+```
+
+#### Configure a submodule
+
+If you're self-hosting, you can simply add a `.env.local` file in the submodule directory.
+
+If you're cloud-hosting, you can use environment variables but with a dedicated prefix.
+
+e.g. `PRIVATE_KEY_ZERO_HEX` becomes `MAINNET_PRIVATE_KEY_ZERO_HEX` if the prefix is `MAINNET_`
