@@ -1,5 +1,6 @@
 import * as Dotenv from "https://deno.land/std@0.217.0/dotenv/mod.ts";
 import * as JsonRpc from "./mods/network-json-rpc-guard/mod.ts";
+import * as Signal from "./mods/network-signaler/mod.ts";
 
 const envPath = new URL(import.meta.resolve("./.env.local")).pathname
 
@@ -9,15 +10,20 @@ const {
   KEY = Deno.env.get("KEY"),
 } = await Dotenv.load({ envPath, examplePath: null })
 
+const signal = await Signal.main("SIGNAL_")
 const jsonRpc = await JsonRpc.main("JSON_RPC_")
 
 const onHttpRequest = async (request: Request) => {
-  if (request.headers.get("host")?.startsWith("json-rpc."))
+  if (request.headers.get("host")?.startsWith("signal."))
+    return await signal.onHttpRequest(request)
+  if (request.headers.get("host")?.startsWith("mainnet."))
     return await jsonRpc.onHttpRequest(request)
 
   const url = new URL(request.url)
 
-  if (url.pathname === "/json-rpc")
+  if (url.pathname === "/signal")
+    return await signal.onHttpRequest(request)
+  if (url.pathname === "/mainnet")
     return await jsonRpc.onHttpRequest(request)
 
   return new Response("Not Found", { status: 404 })
