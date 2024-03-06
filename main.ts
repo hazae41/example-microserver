@@ -9,7 +9,7 @@ const {
   KEY = Deno.env.get("KEY"),
 } = await Dotenv.load({ envPath, examplePath: null })
 
-const jsonRpc = await JsonRpc.main()
+const jsonRpc = await JsonRpc.main("JSON_RPC_")
 
 const onHttpRequest = async (request: Request) => {
   if (request.headers.get("host")?.startsWith("json-rpc."))
