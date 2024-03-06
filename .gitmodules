@@ -1,6 +1,0 @@
-[submodule "mods/network-json-rpc-guard"]
-	path = mods/network-json-rpc-guard
-	url = https://github.com/hazae41/network-json-rpc-guard
-[submodule "mods/network-signaler"]
-	path = mods/network-signaler
-	url = https://github.com/hazae41/network-signaler.git
