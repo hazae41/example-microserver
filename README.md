@@ -1,6 +1,6 @@
 # Example Microserver
 
-Allows colocating multiple Deno "servers" on the same Docker container using wildcard DNS, URL path, HTTP headers, and more.
+Allows colocating multiple Deno servers on the same Docker container using wildcard DNS, URL path, HTTP headers, and more.
 
 Optimized for both cloud-hosting and self-hosting.
 
