@@ -1,0 +1,6 @@
+[submodule "mods/mainnet"]
+	path = mods/mainnet
+	url = https://github.com/hazae41/network-json-rpc-guard
+[submodule "mods/signal"]
+	path = mods/signal
+	url = https://github.com/hazae41/network-signaler.git
