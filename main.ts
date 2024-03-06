@@ -11,20 +11,20 @@ const {
 } = await Dotenv.load({ envPath, examplePath: null })
 
 const signal = await Signal.main("SIGNAL_")
-const jsonRpc = await JsonRpc.main("JSON_RPC_")
+const mainnet = await JsonRpc.main("MAINNET_")
 
 const onHttpRequest = async (request: Request) => {
   if (request.headers.get("host")?.startsWith("signal."))
     return await signal.onHttpRequest(request)
   if (request.headers.get("host")?.startsWith("mainnet."))
-    return await jsonRpc.onHttpRequest(request)
+    return await mainnet.onHttpRequest(request)
 
   const url = new URL(request.url)
 
   if (url.pathname === "/signal")
     return await signal.onHttpRequest(request)
   if (url.pathname === "/mainnet")
-    return await jsonRpc.onHttpRequest(request)
+    return await mainnet.onHttpRequest(request)
 
   return new Response("Not Found", { status: 404 })
 }
