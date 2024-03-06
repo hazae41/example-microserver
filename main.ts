@@ -1,6 +1,6 @@
 import * as Dotenv from "https://deno.land/std@0.217.0/dotenv/mod.ts";
-import * as JsonRpc from "./mods/network-json-rpc-guard/mod.ts";
-import * as Signal from "./mods/network-signaler/mod.ts";
+import * as Mainnet from "./mods/mainnet/mod.ts";
+import * as Signal from "./mods/signal/mod.ts";
 
 const envPath = new URL(import.meta.resolve("./.env.local")).pathname
 
@@ -11,7 +11,7 @@ const {
 } = await Dotenv.load({ envPath, examplePath: null })
 
 const signal = await Signal.main("SIGNAL_")
-const mainnet = await JsonRpc.main("MAINNET_")
+const mainnet = await Mainnet.main("MAINNET_")
 
 const onHttpRequest = async (request: Request) => {
   if (request.headers.get("host")?.startsWith("signal."))
