@@ -115,7 +115,7 @@ e.g. `./tls/fullchain.pem` and `./tls/privkey.pem`
 
 Each submodule is configured via environment variables with a dedicated prefix. And routes requests to it via wildcard DNS, URL path, HTTP headers, and more.
 
-#### Add a submodule
+#### Adding a submodule
 
 ```bash
 git submodule add https://github.com/<...> ./mods/<name>
@@ -127,7 +127,7 @@ e.g.
 git submodule add https://github.com/hazae41/network-signaler.git ./mods/signal
 ```
 
-#### Route a submodule
+#### Routing a submodule
 
 You just have to edit `main.ts` to load your submodule and route to it depending on wildcard DNS, URL path, HTTP headers, or anything you want.
 
@@ -153,10 +153,16 @@ const onHttpRequest = async (request: Request) => {
 }
 ```
 
-#### Configure a submodule
+#### Configuring a submodule
 
 If you're self-hosting, you can simply add a `.env.local` file in the submodule directory.
 
 If you're cloud-hosting, you can use environment variables but with a dedicated prefix.
 
 e.g. `PRIVATE_KEY_ZERO_HEX` becomes `MAINNET_PRIVATE_KEY_ZERO_HEX` if the prefix is `MAINNET_`
+
+#### Updating all submodules
+
+```bash
+git submodule foreach git pull origin main
+```
