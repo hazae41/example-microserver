@@ -36,7 +36,7 @@ You just need
 Then clone the repository (or fork-then-clone)
 
 ```bash
-git clone https://github.com/hazae41/network-json-rpc-guard && cd ./network-json-rpc-guard
+git clone --recurse-submodules https://github.com/hazae41/example-microserver <name> && cd ./<name>
 ```
 
 Setup environment variables (see list below) by creating a `.env.local` file
