@@ -107,8 +107,6 @@ e.g. `8080`
 
 The paths to your TLS certificate and private key
 
-**They must be in a Docker accessible directory**
-
 e.g. `./tls/fullchain.pem` and `./tls/privkey.pem`
 
 ### Submodules
